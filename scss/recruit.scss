@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+// ---------------------------------------------
+//  各ファイルを読み込む（採用サイトとかで使うよ⇒「recruit」のフォルダ）
+// ---------------------------------------------
+
+@use "recruit/utility"; // 基本共通要素
+@use "recruit/parts"; // 共通装飾パーツ
+@use "recruit/base"; // header,footerやmainなど
+
+// index
+
+@use "recruit/pages/top";
+
+// 下層ページ
+
+@use "recruit/pages/company";
+@use "recruit/pages/message";
+@use "recruit/pages/recruit";
+@use "recruit/pages/work";
+@use "recruit/pages/person";
+@use "recruit/pages/entry";
+@use "recruit/pages/contact";
+@use "recruit/pages/about";
+@use "recruit/pages/history";
+@use "recruit/pages/daily";
+@use "recruit/pages/data";
+@use "recruit/pages/notfound"; // 404ページ見つかりません
+
+// wordpress用 ブログ記事をリッチテキストエディタ
+// @use "post";

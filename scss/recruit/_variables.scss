@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+// ---------------------------------------------
+// ここから変数
+// ---------------------------------------------
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap");
+
+// color
+$color-body: #000; // 本文のテキスト用
+$color-primary: #008080; // サイト内で１番よく使う色、ベースカラー
+$color-secondary: #fafad2; // サイト内で２番目に使う色、サブカラー
+$color-accent: #ff6347; // サイト内で３番目に使う色、アクセントカラー
+
+// サイト全体がカラフル等、ベースカラー等がわからない時は変数名を$color-blue等に変更してよい
+// 基本の３色以外に色を追加する時は$color-redや$color-blue等でOK
+
+// font
+$font-sans: "Noto Sans JP", sans-serif;
+$font-yugo: "游ゴシック体", "YuGothic", "游ゴシック", "Yu Gothic", sans-serif;
+$font-yumin: "YuMincho", "Yu Mincho", "游明朝体", "Hiragino Mincho Pro", "ヒラギノ明朝 Pro", "MS P明朝", "MS PMincho", "Times New Roman", serif;
+
+// Noto Sans JPは400(Regular),500(Medium),700(Bold)を用意しています
+
+// Helvetica使用
+// $font-sans: "Helvetica Neue", "Arial", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif;
+
+// ヒラギノ明朝使用
+// $font-serif: "Hiragino Mincho Pro", "ヒラギノ明朝 Pro", "YuMincho", "Yu Mincho", "游明朝体", "MS P明朝", "MS PMincho", "Times New Roman", serif;
+
+
+// font-size
+:root {
+
+  /* 初期値 2.5。スマホ時のサイズを調整したいときは、ここの数字を調整してください。 */
+  --invariants: 2.5;
+
+  /* フォントサイズの変数を生成します（--fz10 から --fz100 まで） */
+  @for $i from 10 through 100 {
+
+    /* 100px以上のフォントサイズが必要な場合は、100の部分の数字を調整してください。 */
+    --fz#{$i}: min(#{0.1 * $i}rem, calc(#{0.1 * $i}vw * var(--invariants)));
+  }
+
+  /* 使用例: font-size: var(--fz16); */
+}
+
+
+// ---------------------------------------------
+// ここまで
+// ---------------------------------------------
+// ブレークポイントの定義
+$breakpoints: (
+  "tb": 767px,
+  "pc": 768px,
+  "tablet": 834px
+);
+
+// レスポンシブミックスイン
+
+@mixin max-mq($breakpoint: "tb") {
+  // 指定したブレークポイント以下のスタイルを適用
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin min-mq($breakpoint: "pc") {
+  // 指定したブレークポイント以上のスタイルを適用
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+// 利用例
+
+@include min-mq("pc") {
+  // 768px以上
+  .is-hidden_pc {
+    display: none;
+  }
+}
+
+@include max-mq("tb") {
+  // 767px以下
+  .is-hidden_sp {
+    display: none;
+  }
+}

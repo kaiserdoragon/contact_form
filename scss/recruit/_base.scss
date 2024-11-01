@@ -1,0 +1,347 @@
+@charset "UTF-8";
+@use "variables"as *;
+
+// ---------------------------------------------
+//  base
+// ---------------------------------------------
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-sans;
+  font-size: var(--fz16);
+  line-height: 1.6;
+  color: $color-body;
+}
+
+// font-sizeは下記の用に指定
+// font-size: var(--fz14);
+
+.wrap {
+  // min-width: 1200px;
+  margin: auto;
+
+  @include max-mq {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+.container {
+  box-sizing: border-box;
+  width: min(1200px, 100%); // デザインの幅 + padding
+  padding: 0 10px;
+  margin: auto;
+
+  &.-lg {
+    width: min(1300px, 100%);
+  }
+}
+
+main {
+  display: block;
+  overflow: hidden;
+
+  // for ipad portrait mode
+
+  @media (min-width: 768px) and (max-width: 769px) and (orientation: portrait) {
+    min-height: 95vh;
+  }
+
+  @include max-mq {
+    margin-top: -25px;
+  }
+}
+
+.totop {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+
+  // display: none; fadeInを利用するときに必要
+
+  @include max-mq {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+// グーグルマップ
+.googlemap {
+  position: relative;
+
+  &::before {
+    display: block;
+    padding-top: 46%; // 【マップの高さ】高さ/幅*100%
+    content: "";
+  }
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include max-mq {
+    &::before {
+      padding-top: 450px;
+    }
+  }
+}
+
+// ---------------------------------------------
+//  ヘッダー関連 header_recruit
+// ---------------------------------------------
+
+.header_recruit {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+
+  @include max-mq {
+    padding: 5px 20px;
+    background: #9e3930;
+    border-radius: 0 0 20px 20px;
+  }
+
+  // .header_recruit--inner
+  &--inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    font-size: var(--fz15);
+    font-weight: 500;
+
+    @include min-mq {
+      background: #fff;
+    }
+
+    @include max-mq {
+      height: 60px;
+    }
+  }
+
+  // .header_recruit--logo
+  &--logo {
+    @include min-mq {
+      box-sizing: border-box;
+      width: min(280px, 24vw);
+      height: 120px;
+      padding: 22px min(2vw, 35px);
+      background-color: #9e3930;
+      border-radius: 0 0 40px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    @include max-mq {
+      img {
+        width: 150px;
+      }
+    }
+  }
+}
+
+// ---------------------------------------------
+//  グローバルナビゲーション関連 gnav
+// ---------------------------------------------
+
+.gnav_btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  display: block;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  background: $color-primary;
+  border: 2px solid #fff;
+
+  span {
+    position: absolute;
+    left: 15%;
+    display: block;
+    width: 70%;
+    height: 3px;
+    background: #fff;
+    transition: 0.3s;
+
+    &:first-child {
+      top: 23%;
+    }
+
+    &:nth-child(2) {
+      top: 48%;
+      opacity: 1;
+    }
+
+    &:last-child {
+      top: 72%;
+    }
+  }
+
+  &.is-open span {
+    transition: 0.2s;
+
+    &:first-child {
+      top: 48%;
+      transform: rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      display: none;
+      opacity: 0;
+    }
+
+    &:last-child {
+      top: 48%;
+      transform: rotate(-45deg);
+    }
+  }
+
+  @include min-mq {
+    display: none; // Hide on PC
+  }
+}
+
+.gnav {
+  display: block;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  a {
+    display: block;
+    padding: 15px 0;
+  }
+
+  @include max-mq {
+    position: fixed;
+    top: 0;
+    right: -110%;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+
+    &.is-open {
+      right: 0;
+    }
+
+    ul {
+      display: block;
+    }
+  }
+}
+
+// ---------------------------------------------
+//  フッター関連 footer
+// ---------------------------------------------
+
+.footer {
+  color: #fff;
+  background: #000;
+
+  // .footer--top
+  &--top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding-bottom: 7vw;
+    border-bottom: solid 1px #fff;
+
+    img {
+      margin-bottom: 50px;
+    }
+  }
+
+  // .footer--sitemap
+  &--sitemap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px 50px;
+    justify-content: space-between;
+    width: max(525px, 15vw);
+    font-size: var(--fz15);
+    font-weight: 500;
+
+    &::after {
+      display: block;
+      width: 198px;
+      content: "";
+    }
+  }
+
+  // .footer--contact
+  &--contact {
+    font-weight: bold;
+
+    li {
+      transition: 0.3s;
+
+      &:first-of-type {
+        margin-bottom: 20px;
+        background: #74acb1;
+      }
+
+      &:last-of-type {
+        background: #41586e;
+      }
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    a {
+      display: block;
+      padding: 18px 55px;
+    }
+  }
+
+  // footer--bottom
+  &--bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include max-mq {
+      flex-direction: column;
+      margin-top: 10px;
+    }
+  }
+
+  // footer--sait
+  &--sait {
+    font-size: var(--fz20);
+    font-weight: 500;
+
+    &::after {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-left: 10px;
+      content: "";
+      background: url(../img/recruit/common/icon_blank.svg) no-repeat center/ auto;
+    }
+  }
+
+  // footer--copy
+  &--copy {
+    padding: 20px 10px 10px;
+    line-height: 1;
+  }
+}
